@@ -31,3 +31,4 @@ apt-get install -y memcached php-memcached
 systemctl enable memcached
 systemctl restart php7.4-fpm
 systemctl restart nginx
+#
