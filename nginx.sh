@@ -22,7 +22,7 @@ apt-get install -y phpmyadmin #Криво устанавливается
 wget --no-check-certificate --content-disposition -P /etc/nginx/sites-enabled/ https://raw.githubusercontent.com/KillingNature/configs/main/phpmyadmin.conf
 echo -e "\e[31mВведите полное имя домена:\e[0m"
 read DOMAIN
-sed -i -e "s/phpmyadmin.dmosk.local/$DOMAIN/g" /etc/nginx/sites-enabled/phpmyadmin.conf
+sed -i -e "s/phpmyadmin.dmosk.local/php.$DOMAIN/g" /etc/nginx/sites-enabled/phpmyadmin.conf
 my_ip=$(ip route get 8.8.8.8 | awk -F"src " 'NR==1{split($2,a," ");print a[1]}')
 sed -i "1s/^/$my_ip $DOMAIN\n/" /etc/hosts
 sed -i -e "s/#Name/$DOMAIN/g" /etc/nginx/sites-enabled/default.conf
@@ -31,4 +31,3 @@ apt-get install -y memcached php-memcached
 systemctl enable memcached
 systemctl restart php7.4-fpm
 systemctl restart nginx
-#
