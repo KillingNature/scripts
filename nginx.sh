@@ -103,11 +103,11 @@ case "$agree" in
     *) break
         ;;
 esac
-echo "\e[31mУкажите имя FTP пользователя:\e[0m"
+echo -e "\e[31mУкажите имя FTP пользователя:\e[0m"
 read USERNAME
 
 #Создание пользователя
-ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd --name=$USERNAME.local --uid=33 --gid=33 --home=/var/www/$DOMAIN --shell=/usr/sbin/nologin
+ftpasswd --passwd --file=/etc/proftpd/ftpd.passwd --name=$USERNAME --uid=33 --gid=33 --home=/var/www/$DOMAIN --shell=/usr/sbin/nologin
 sed -i -e "s\#DefaultRoot\DefaultRoot\g" /etc/proftpd/proftpd.conf
 
 echo "RequireValidShell off
@@ -117,4 +117,5 @@ LoadModule mod_auth_file.c
 AuthOrder mod_auth_file.c" > /etc/proftpd/conf.d/virtual_file.conf
 systemctl restart proftpd
 
+echo -e "\e[31mНеобходимо добавить $my_ip $DOMAIN и $my_ip php.$DOMAIN в файл hosts\e[0m"
 echo -e "\e[31mНеобходимо добавить $my_ip $DOMAIN и $my_ip php.$DOMAIN в файл hosts\e[0m"
